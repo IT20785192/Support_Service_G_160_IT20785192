@@ -47,7 +47,9 @@
 	// execute the statement
 		preparedStmt.execute();
 		con.close();
-		output = "Inserted successfully";
+		String newComplaint = readComplaints();
+		 output = "{\"status\":\"success\", \"data\": \"" + newComplaint + "\"}";
+		
 		}
 		catch (Exception e)
 		{
@@ -146,11 +148,13 @@
 		// execute the statement
 		preparedStmt.execute();
 		con.close();
-		output = "Updated successfully";
+		String newComplaint = readComplaints();
+		 output = "{\"status\":\"success\", \"data\": \"" + newComplaint + "\"}"; 
+
 		}
 		catch (Exception e)
 		{
-		output = "Error while updating the complaint.";
+		output = "{\"status\":\"error\", \"data\":\"Error while updating the complaint.\"}"; 
 		System.err.println(e.getMessage());
 		}
 		return output;
@@ -166,7 +170,8 @@
 		{
 		Connection con = connect();
 		if (con == null)
-		{return "Error while connecting to the database for deleting.";}
+		{
+			return "Error while connecting to the database for deleting.";}
 		
 		// create a prepared statement
 		String query = "delete from complaints where complaintID=?";
@@ -176,11 +181,14 @@
 		// execute the statement
 		preparedStmt.execute();
 		con.close();
-		output = "Deleted successfully";
+		
+		String newComplaint = readComplaints();
+		output = "{\"status\":\"success\", \"data\": \"" +newComplaint + "\"}"; 
+
 		}
 		catch (Exception e)
 		{
-		output = "Error while deleting the complaint.";
+		output =  "{\"status\":\"error\", \"data\":\"Error while deleting the complaint.\"}";
 		System.err.println(e.getMessage());
 		}
 		return output;
